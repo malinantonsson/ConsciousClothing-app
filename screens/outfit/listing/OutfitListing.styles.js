@@ -6,13 +6,9 @@ export default StyleSheet.create({
     backgroundColor: colors.springWood,
     flex: 1,
     flexDirection: "row",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+    alignItems: "flex-start"
   },
-  card: {
-    flex: 1
-  },
-  image: {
-    width: 300,
-    height: 300
-  }
+  card: {}
 });

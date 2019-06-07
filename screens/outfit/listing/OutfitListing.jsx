@@ -1,17 +1,30 @@
 import React, { Component } from "react";
 
-import { View, Text, Image } from "react-native";
+import { View, Text, FlatList } from "react-native";
 
 import styles from "./OutfitListing.styles";
 
-import Card from "Components/ui/Card";
-
+import FluidImage from "Components/ui/FluidImage";
+import { getOutfits } from "Api/outfit";
 import Data from "./OutfitListing.data";
 
 class OutfitListingScreen extends Component {
-  componentDidMount() {
-    console.log("hello");
+  constructor(props) {
+    super(props);
+    this.state = { outfits: [] };
   }
+
+  componentWillMount() {
+    console.log("hello");
+    //this.props.setLoading();
+    getOutfits().then(response => {
+      this.setState({ outfits: response.data });
+    });
+  }
+
+  _keyExtractor = (item, index) => item.title;
+
+  _renderItem = ({ item }) => <FluidImage url={item.image_url} />;
 
   static navigationOptions = {
     title: "Outfits"
@@ -19,19 +32,12 @@ class OutfitListingScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {Data.map(outfit => (
-          <View style={styles.card} key={outfit.title}>
-            <Card>
-              <Image
-                style={styles.image}
-                resizeMode="contain"
-                source={{ url: outfit.url }}
-              />
-            </Card>
-          </View>
-        ))}
-      </View>
+      <FlatList
+        contentContainerStyle={styles.container}
+        data={this.state.outfits}
+        keyExtractor={this._keyExtractor}
+        renderItem={this._renderItem}
+      />
     );
   }
 }
