@@ -9,6 +9,10 @@ import Card from "Components/ui/Card";
 import Data from "./OutfitListing.data";
 
 class OutfitListingScreen extends Component {
+  componentDidMount() {
+    console.log("hello");
+  }
+
   static navigationOptions = {
     title: "Outfits"
   };
