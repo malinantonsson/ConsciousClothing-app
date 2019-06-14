@@ -11,6 +11,11 @@ import HomeScreen from "Screens/HomeScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 
 import OutfitListingScreen from "Screens/outfit/listing";
+import ItemListingScreen from "Screens/item/listing";
+
+import CreateScreen from "Screens/create";
+
+import ROUTES from "Constants/routes";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
@@ -31,7 +36,7 @@ HomeStack.navigationOptions = {
 };
 
 const OutfitsStack = createStackNavigator({
-  Outfits: OutfitListingScreen
+  [ROUTES.outfits]: OutfitListingScreen
 });
 
 OutfitsStack.navigationOptions = {
@@ -40,6 +45,34 @@ OutfitsStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+    />
+  )
+};
+
+const ItemsStack = createStackNavigator({
+  [ROUTES.items]: ItemListingScreen
+});
+
+ItemsStack.navigationOptions = {
+  tabBarLabel: "Wardrobe",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+    />
+  )
+};
+
+const CreateStack = createStackNavigator({
+  Create: CreateScreen
+});
+
+CreateStack.navigationOptions = {
+  tabBarLabel: "Create",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-add-circle" : "md-add-circle"}
     />
   )
 };
@@ -73,7 +106,9 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
+  ItemsStack,
   OutfitsStack,
+  CreateStack,
   HomeStack,
   SettingsStack
 });
